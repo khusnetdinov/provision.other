@@ -1,21 +1,19 @@
 ---
-- name: Install git and zsh 
+- name: Install zsh
   apt: name={{item}} state=latest update_cache=yes
   with_items:
    - apt-transport-https
-   - git
    - zsh
-   - git-core
 
 - name: Clone oh-my-zsh repo
-  git: repo=https://github.com/robbyrussell/oh-my-zsh.git dest=/home/deploy/.oh-my-zsh
+  git: repo=https://github.com/robbyrussell/oh-my-zsh.git dest=/home/{{provision_user}}/.oh-my-zsh
 
-- name: remove standard zshrc
-  file: path=/home/deploy/.zshrc state=absent
+- name: Remove standard zshrc
+  file: path=/home/{{provision_user}}/.zshrc state=absent
 
-- name: deploy .zshrc
-  template: src=zshrc.j2 dest=/home/deploy/.zshrc owner=deploy
+- name: Link .zshrc
+  template: src=zshrc.j2 dest=/home/{{provision_user}}/.zshrc owner={{provision_user}}
 
-- name: allow sudo without password for sudo group
+- name: Allow sudo without password for sudo group
   sudo: yes
   lineinfile: "dest=/etc/sudoers state=present regexp='^%sudo' line='%sudo ALL=(ALL) NOPASSWD: ALL'"
