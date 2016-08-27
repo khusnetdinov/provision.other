@@ -1,5 +1,19 @@
 galaxy_info:
   author: Marat Khustnetdinov
-  description: other tools
+  description: Ansible role witch installs zsh to system
+  galaxy_tags:
+    - system
+    - zsh
+    - production
+  platforms:
+    - name: Ubuntu
+      versions:
+        - all
+  categories:
+    - system
+    - zsh
   license: MIT
   min_ansible_version: 1.8
+
+dependencies: []
+
